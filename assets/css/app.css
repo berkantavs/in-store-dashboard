@@ -12,6 +12,7 @@ body {
 	letter-spacing: .5px;
 	background-color: #f4f4f4;
 	overflow-x: hidden;
+	
 	font-family: Roboto, sans-serif
 }
 
@@ -1714,7 +1715,14 @@ a {
 	margin: 5px;
 	box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075)!important
 }
-
+.basic-bg{
+	background-image: url(../images/login-images/bg-login-img.jpg);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	height:100vh;
+}
 .bg-login {
 	background-image: url(../images/login-images/bg-login-img.jpg);
 	background-size: cover;

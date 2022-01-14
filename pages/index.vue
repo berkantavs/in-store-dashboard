@@ -68,7 +68,7 @@
     <template v-else>
       <div class="choose-shopping-center text-center m-5">
         <img src="@/assets/images/logo.png" width="180" alt="" />
-        <h5 class="d-block mt-2 mb-3">Choose Shopping Center</h5>
+        <h5 class="d-block mt-2 mb-3">Choose Store</h5>
         <div class="shopping-centers mt-2">
           <b-row>
             <b-col md="6" offset-md="3">
@@ -76,7 +76,7 @@
                 <b-col lg="6">
                   <b-card
                     no-body
-                    @click="selectShoppingCenter('koctas')"
+                    @click="selectStore('koctas')"
                     class="rounded border cursor-pointer text-center shopping-center-card"
                   >
                     <div class="text-center">
@@ -91,7 +91,7 @@
                 <b-col lg="6">
                   <b-card
                     no-body
-                    @click="selectShoppingCenter('civil')"
+                    @click="selectStore('civil')"
                     class="rounded border cursor-pointer text-center shopping-center-card"
                   >
                     <div class="text-center">
@@ -101,7 +101,7 @@
                 <b-col lg="6">
                   <b-card
                     no-body
-                    @click="selectShoppingCenter('ebebek')"
+                    @click="selectStore('ebebek')"
                     class="rounded border cursor-pointer text-center shopping-center-card"
                   >
                     <div class="text-center">
@@ -116,7 +116,7 @@
                 <b-col lg="6">
                   <b-card
                     no-body
-                    @click="selectShoppingCenter('evidea')"
+                    @click="selectStore('evidea')"
                     class="rounded border text-center cursor-pointer shopping-center-card"
                   >
                     <div class="text-center">
@@ -140,9 +140,10 @@ export default {
   data() {
     return { email: null, password: null, selected_shopping_center: null }
   },
+  layout: 'basic',
   methods: {
     authCheck(email, password) {
-      if (email == 'info@ebebek.com' && password == 'ebebek123') {
+      if (email == 'info@imona.com' && password == 'imona123') {
         return true
       } else {
         return false
@@ -150,12 +151,12 @@ export default {
     },
     login() {
       if (this.authCheck(this.email, this.password)) {
-        this.$router.push('/dashboard')
+        this.$router.push('/storedetails')
       }
     },
-    selectShoppingCenter(s_center) {
+    selectStore(s_center) {
       if (s_center) {
-        localStorage.setItem('shopping_center', s_center)
+        localStorage.setItem('selected_store', s_center)
         this.selected_shopping_center = s_center
       }
     },
