@@ -2087,7 +2087,9 @@ input.search-control-2::placeholder {
 .app-title {
 	font-size: 14px
 }
-
+.shopping-center-card{
+	min-height: 200px !important;
+}
 .user-box .dropdown-menu i {
 	vertical-align: middle;
 	margin-right: 10px
