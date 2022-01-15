@@ -25,7 +25,7 @@
                     <b-col lg="4" class="text-left">
                       <small><b>Gate Name</b></small>
                     </b-col>
-                    <b-col lg="2" class="text-right">
+                    <b-col lg="2" class="text-left">
                       <small><b>Status</b></small>
                     </b-col>
                     <b-col lg="2" class="text-right"> </b-col>
@@ -46,7 +46,7 @@
                           ><b>{{ gate.name }}</b></small
                         ></b-col
                       >
-                      <b-col lg="2" class="text-right">
+                      <b-col lg="1" class="text-right">
                         <b-form-checkbox
                           v-model="gate.status"
                           switch
@@ -56,13 +56,21 @@
                         >
                         </b-form-checkbox>
                       </b-col>
-                      <b-col lg="2" class="text-right">
+                      <b-col lg="3" class="text-right">
+                        <b-button
+                          style="padding: 0px 10px 3px 10px"
+                          class="text-white"
+                          variant="info"
+                          @click="detailGate(gate)"
+                        >
+                          <b-icon icon="eye" font-scale="0.9"></b-icon>
+                        </b-button>
                         <b-button
                           variant="danger"
-                          class="p-1"
+                          style="padding: 0px 10px 3px 10px"
                           @click="deleteGate(gate.id)"
                         >
-                          <small>Delete</small>
+                          <b-icon icon="trash-fill" font-scale="0.9"></b-icon>
                         </b-button>
                       </b-col>
                     </b-row>
@@ -71,7 +79,7 @@
               </b-list-group>
               <b-modal
                 id="modal-prevent-closing"
-                ref="modal"
+                ref="gate_modal"
                 title="Add New Gate"
                 @ok="setGate"
               >
@@ -115,6 +123,13 @@ export default {
     this.getShopDoors()
   },
   methods: {
+    detailGate(gate) {
+      let id = gate.id
+      this.$router.push({
+        name: `store-gatedetail`,
+        query: { id },
+      })
+    },
     async setGate() {
       let payload = {
         company: localStorage.getItem('selected_store'),

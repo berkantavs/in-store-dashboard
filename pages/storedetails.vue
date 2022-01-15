@@ -43,7 +43,7 @@
                   </template>
                   <div class="truncate mb-50">
                     <h6 class="mb-0 mt-1 text-primary font-weight-bolder">
-                      Aisles
+                      Rayons
                     </h6>
                   </div>
                 </b-card>

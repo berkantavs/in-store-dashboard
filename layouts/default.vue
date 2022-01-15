@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-row no-gutters>
-      <b-col lg="1">
+      <b-col lg="2">
         <div class="sidebar-wrapper" data-simplebar="true">
           <div class="sidebar-header">
             <!-- <div v-if="store">
@@ -15,8 +15,17 @@
               <h4 class="logo-text">{{ store }}</h4>
             </div>
             <div class="toggle-icon ms-auto">
-              <b-button variant="outline-primary" @click="logout()">
-                <i class="bx bx-arrow-to-left"></i>
+              <b-button
+                variant="outline-primary"
+                style="
+                  padding-top: 0px;
+                  padding-right: 0px;
+                  padding-left: 5px;
+                  padding-bottom: 3px;
+                "
+                @click="logout()"
+              >
+                <i class="bx bx-arrow-to-left" style="vertical-align:middle"> </i>
               </b-button>
             </div>
           </div>
@@ -543,7 +552,7 @@
           <!--end navigation-->
         </div>
       </b-col>
-      <b-col lg="11">
+      <b-col lg="10">
         <Nuxt />
       </b-col>
     </b-row>
