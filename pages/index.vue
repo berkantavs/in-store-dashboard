@@ -1,6 +1,6 @@
 <template>
   <body class="bg-login">
-    <template v-if="selected_shopping_center">
+    <template>
       <div class="wrapper">
         <div
           class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0"
@@ -65,7 +65,7 @@
         </div>
       </div>
     </template>
-    <template v-else>
+    <!-- <template v-else>
       <div class="choose-shopping-center text-center m-5">
         <img src="@/assets/images/logo.png" width="180" alt="" />
         <h5 class="d-block mt-2 mb-3">Choose Store</h5>
@@ -131,7 +131,7 @@
           </b-row>
         </div>
       </div>
-    </template>
+    </template> -->
   </body>
 </template>
 
@@ -151,13 +151,7 @@ export default {
     },
     login() {
       if (this.authCheck(this.email, this.password)) {
-        this.$router.push('/storedetails')
-      }
-    },
-    selectStore(s_center) {
-      if (s_center) {
-        localStorage.setItem('selected_store', s_center)
-        this.selected_shopping_center = s_center
+        this.$router.push('/store/list')
       }
     },
   },

@@ -5,7 +5,9 @@ Author: codervent
 Email: codervent@gmail.com
 File: app.css
 */
-
+.row{
+	margin: 10px !important;
+}
 body {
 	font-size: 14px;
 	color: #4c5258;
@@ -26,7 +28,7 @@ a {
 }
 
 .sidebar-wrapper {
-	width: 250px;
+	width: 270px;
 	height: 100%;
 	position: fixed;
 	top: 0;
@@ -40,7 +42,7 @@ a {
 }
 
 .sidebar-header {
-	width: 250px;
+	width: 270px;
 	height: 60px;
 	display: flex;
 	align-items: center;
@@ -1715,14 +1717,14 @@ a {
 	margin: 5px;
 	box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075)!important
 }
-.basic-bg{
+/* .basic-bg{
 	background-image: url(../images/login-images/bg-login-img.jpg);
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	height:100vh;
-}
+} */
 .bg-login {
 	background-image: url(../images/login-images/bg-login-img.jpg);
 	background-size: cover;

@@ -449,7 +449,7 @@ export default {
   },
   async created() {
     if (this.$route.query.id) {
-      this.getGateInfo(this.$route.query.id)
+      this.getCaseInfo(this.$route.query.id)
     }
   },
   watch: {
@@ -461,10 +461,10 @@ export default {
     },
   },
   methods: {
-    async getGateInfo(gate_id) {
+    async getCaseInfo(case_id) {
       try {
         const response = await this.$axios.get(
-          'https://61e0849f63f8fc0017618805.mockapi.io/gates/' + gate_id
+          'https://61e0849f63f8fc0017618805.mockapi.io/cases/' + case_id
         )
         if (response && response.data && response.data.reports) {
           this.gate_report = response.data.reports
