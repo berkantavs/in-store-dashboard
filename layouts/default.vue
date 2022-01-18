@@ -32,53 +32,43 @@
               </a>
               <ul>
                 <li>
-                  <a href="/">
+                  <nuxt-link to="/">
                     <b-icon
                       icon="circle"
                       font-scale="0.9"
                       class="mr-2"
                     ></b-icon>
-                    Companies</a
+                    Home</nuxt-link
                   >
                 </li>
                 <li>
-                  <a href="/store/list">
+                  <nuxt-link to="/store/list">
                     <b-icon
                       icon="circle"
                       font-scale="0.9"
                       class="mr-2"
                     ></b-icon>
-                    Stores</a
+                    Stores</nuxt-link
                   >
                 </li>
                 <li>
-                  <a href="/store/gates">
+                  <nuxt-link to="/store-details">
                     <b-icon
                       icon="circle"
                       font-scale="0.9"
                       class="mr-2"
                     ></b-icon>
-                    Gates</a
+                    Sections</nuxt-link
                   >
                 </li>
                 <li>
-                  <a href="/store/tills">
+                  <nuxt-link to="/dashboard">
                     <b-icon
                       icon="circle"
                       font-scale="0.9"
                       class="mr-2"
                     ></b-icon>
-                    Tills</a
-                  >
-                </li>
-                <li>
-                  <a href="/store/rayons">
-                    <b-icon
-                      icon="circle"
-                      font-scale="0.9"
-                      class="mr-2"
-                    ></b-icon>
-                    Rayons</a
+                    Dashboard</nuxt-link
                   >
                 </li>
               </ul>
@@ -92,30 +82,31 @@
           <div class="mt-3">
             <b-breadcrumb class="p-2">
               <b-breadcrumb-item href="/">
-                <b-icon
-                  icon="house-fill"
-                  scale="1.25"
-                  shift-v="1.25"
-                  aria-hidden="true"
-                ></b-icon>
                 Home<small class="mr-1"> ></small>
               </b-breadcrumb-item>
               <nuxt-link
                 to="/store/list"
                 v-if="
-                  $route.name == 'store-list' || $route.name == 'storedetails' || $route.name == 'dashboard'
+                  $route.name == 'store-list' ||
+                  $route.name == 'store-details' ||
+                  $route.name == 'dashboard'
                 "
               >
-                <b-breadcrumb-item :active="$route.name == 'store-list'">
+                <b-breadcrumb-item
+                  href="/store/list"
+                  :active="$route.name == 'store-list'"
+                >
                   Stores <small class="mr-1"> ></small>
                 </b-breadcrumb-item></nuxt-link
               >
               <nuxt-link
-                to="/storedetails"
+                to="/store-details"
                 v-if="
-                  $route.name == 'storedetails' || $route.name == 'dashboard'
+                  $route.name == 'store-details' || $route.name == 'dashboard'
                 "
-                ><b-breadcrumb-item :active="$route.name == 'storedetails'"
+                ><b-breadcrumb-item
+                  href="/store-details"
+                  :active="$route.name == 'store-details'"
                   >Sections <small class="mr-1"> ></small>
                 </b-breadcrumb-item>
               </nuxt-link>
@@ -146,6 +137,7 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem('selected_store')
+      localStorage.removeItem('stores')
       this.$router.push('/')
     },
   },

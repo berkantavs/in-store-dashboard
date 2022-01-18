@@ -1,5 +1,6 @@
 <template>
-  <b-overlay :show="report_overlay" rounded="sm" opacity="1">
+  <client-only>
+    <b-overlay :show="report_overlay" rounded="sm" opacity="1">
     <div>
       <div>
         <b-row no-gutters>
@@ -13,12 +14,12 @@
           </b-col>
           <b-col lg="9"></b-col>
         </b-row>
-        <div class="text-center">
+        <div class="text-center mt-3">
           <h5>
             <b> MAĞAZA GİRİŞ ÇIKIŞ ANALİZLERİ </b>
           </h5>
         </div>
-        <div class="mt-4">
+        <div class="mt-3">
           <b-row v-if="is_ready">
             <b-col lg="12" class="pl-0">
               <b-card no-body class="rounded border shadow p-2">
@@ -36,7 +37,7 @@
               </div>
               <div>
                 <b-row>
-                  <b-col cols="6" class="pl-0">
+                  <b-col cols="12" lg="6" >
                     <b-card no-body class="rounded border shadow p-2">
                       <apexchart
                         type="bar"
@@ -46,7 +47,7 @@
                       ></apexchart>
                     </b-card>
                   </b-col>
-                  <b-col cols="6" class="pr-0">
+                  <b-col cols="12" lg="6" >
                     <b-card no-body class="mt-3 rounded border shadow p-2">
                       <apexchart
                         type="donut"
@@ -63,7 +64,7 @@
                   <b>KASA YOĞUNLUĞU ANALİZLERİ</b>
                 </h5>
               </div>
-              <b-card no-body class="mt-3 rounded border shadow p-2">
+              <b-card no-body class="mt-3 mb-3 rounded border shadow p-2">
                 <apexchart
                   type="area"
                   height="400"
@@ -80,6 +81,7 @@
       </div>
     </div>
   </b-overlay>
+  </client-only>
 </template>
 
 <script>

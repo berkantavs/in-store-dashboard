@@ -6,7 +6,7 @@
           <div class="mt-4">
             <b-card class="shadow rounded" no-body>
               <b-card-header>
-                <h5 class="mt-2 mb-2">Store Details</h5>
+                <h5 class="mt-2 mb-2">Selected Stores Details</h5>
               </b-card-header>
               <b-card-body>
                 <template v-if="store_sections && store_sections.length > 0">
@@ -14,6 +14,7 @@
                     <thead>
                       <tr>
                         <th class="text-center" scope="col">#</th>
+                        <th class="text-center" scope="col">Store Name</th>
                         <th class="text-center" scope="col">Name</th>
                         <th class="text-center" scope="col">Section</th>
                         <th class="text-center" scope="col">Type</th>
@@ -29,6 +30,8 @@
                             >
                             </b-form-checkbox>
                           </td>
+                          <td class="text-center">{{ section.store_name }}</td>
+
                           <td class="text-center">{{ section.name }}</td>
                           <td class="text-center">{{ section.section }}</td>
                           <td class="text-center">{{ section.type }}</td>
@@ -51,7 +54,11 @@
                   <b-button variant="primary" @click="showDetail">
                     list selected sections
                   </b-button>
-                  <b-button variant="info" class="text-white" @click="showDetail">
+                  <b-button
+                    variant="info"
+                    class="text-white"
+                    @click="showDetail"
+                  >
                     list all sections
                   </b-button>
                 </div>
@@ -72,10 +79,15 @@ export default {
       store_sections: [],
       stores: [],
       selected_sections: [],
+      temp_sections: [],
     }
   },
-  async created() {
-    this.getSections()
+  mounted() {
+    if (localStorage.getItem('stores')) {
+      this.getSectionsByLocalStorage()
+    } else {
+      this.getSections()
+    }
   },
   methods: {
     async getSections() {
@@ -84,7 +96,6 @@ export default {
         const response = await this.$axios.get(
           'https://61e0849f63f8fc0017618805.mockapi.io/stores'
         )
-
         if (response && response.data) {
           response.data.forEach((store) => {
             if (store.sections && store.sections.length > 0) {
@@ -93,6 +104,26 @@ export default {
           })
         }
         this.store_sections = sections
+      } catch (error) {
+        console.log(error)
+        alert('error')
+      }
+    },
+    async getSectionsByLocalStorage() {
+      try {
+        let stores = JSON.parse(localStorage.getItem('stores'))
+        if (stores && stores.length > 0) {
+          stores.forEach((store) => {
+            if (store.sections && store.sections.length > 0) {
+              store.sections[0].store_name = store.name
+              store.sections.forEach((s_sections) => {
+                this.temp_sections.push(s_sections)
+              })
+
+              this.store_sections = this.temp_sections
+            }
+          })
+        }
       } catch (error) {
         console.log(error)
         alert('error')
@@ -132,12 +163,6 @@ export default {
         localStorage.setItem('sections', JSON.stringify(this.selected_sections))
         console.log(this.selected_sections, 'sections')
       }
-    },
-    goToShopDoors() {
-      this.$router.push('/store/gates')
-    },
-    goToShopCases() {
-      this.$router.push('/store/cases')
     },
   },
 }
