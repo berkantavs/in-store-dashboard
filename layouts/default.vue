@@ -32,16 +32,6 @@
               </a>
               <ul>
                 <li>
-                  <nuxt-link to="/">
-                    <b-icon
-                      icon="circle"
-                      font-scale="0.9"
-                      class="mr-2"
-                    ></b-icon>
-                    Home</nuxt-link
-                  >
-                </li>
-                <li>
                   <nuxt-link to="/store/list">
                     <b-icon
                       icon="circle"

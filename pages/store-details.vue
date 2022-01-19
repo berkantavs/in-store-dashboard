@@ -15,7 +15,7 @@
                       <tr>
                         <th class="text-center" scope="col">#</th>
                         <th class="text-center" scope="col">Store Name</th>
-                        <th class="text-center" scope="col">Name</th>
+                        
                         <th class="text-center" scope="col">Section</th>
                         <th class="text-center" scope="col">Type</th>
                         <th class="text-center" scope="col">Status</th>
@@ -32,7 +32,7 @@
                           </td>
                           <td class="text-center">{{ section.store_name }}</td>
 
-                          <td class="text-center">{{ section.name }}</td>
+                          
                           <td class="text-center">{{ section.section }}</td>
                           <td class="text-center">{{ section.type }}</td>
                           <td class="text-center">
@@ -50,9 +50,12 @@
                     </tbody>
                   </table>
                 </template>
-                <div class="text-left mt-1">
-                  <b-button variant="primary" @click="showDetail">
-                    list selected sections
+                <div
+                  class="text-left mt-1"
+               
+                >
+                  <b-button variant="primary" @click="showDetail"    v-if="selected_sections && selected_sections.length > 0">
+                    selected sections details
                   </b-button>
                   <b-button
                     variant="info"

@@ -4,10 +4,10 @@
       <b-card no-body class="shadow rounded">
         <b-card-header>
           <b-row>
-            <b-col lg="7" class="text-left">
+            <b-col lg="5" class="text-left">
               <h5 class="mt-3">Ebebek Stores</h5>
             </b-col>
-            <b-col lg="5" class="text-right">
+            <b-col lg="7" class="text-right">
               <b-row>
                 <b-col lg="8">
                   <b-form-input
@@ -66,7 +66,7 @@
                       v-model="store.status"
                       switch
                       size="lg"
-                      @change="updateStore(gate)"
+                      @change="updateStore(store)"
                       value="true"
                       unchecked-value="false"
                     >

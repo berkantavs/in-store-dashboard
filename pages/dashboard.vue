@@ -1,86 +1,96 @@
 <template>
   <client-only>
     <b-overlay :show="report_overlay" rounded="sm" opacity="1">
-    <div>
       <div>
-        <b-row no-gutters>
-          <b-col lg="3" class="text-left">
-            <b-form-datepicker
-              id="example-datepicker"
-              class="mt-2 bg-light"
-              placeholder="Choose Date"
-              v-model="visual_date"
-            ></b-form-datepicker>
-          </b-col>
-          <b-col lg="9"></b-col>
-        </b-row>
-        <div class="text-center mt-3">
-          <h5>
-            <b> MAĞAZA GİRİŞ ÇIKIŞ ANALİZLERİ </b>
-          </h5>
-        </div>
-        <div class="mt-3">
-          <b-row v-if="is_ready">
-            <b-col lg="12" class="pl-0">
-              <b-card no-body class="rounded border shadow p-2">
-                <apexchart
-                  type="bar"
-                  height="400"
-                  :options="barChartOptions"
-                  :series="series"
-                ></apexchart>
-              </b-card>
-              <div class="text-center">
-                <h5 class="mb-4 mt-3">
-                  <b> REYON ZİYARET ANALİZLERİ </b>
-                </h5>
-              </div>
-              <div>
-                <b-row>
-                  <b-col cols="12" lg="6" >
-                    <b-card no-body class="rounded border shadow p-2">
-                      <apexchart
-                        type="bar"
-                        height="350"
-                        :options="radialBarOptions"
-                        :series="series"
-                      ></apexchart>
-                    </b-card>
-                  </b-col>
-                  <b-col cols="12" lg="6" >
-                    <b-card no-body class="mt-3 rounded border shadow p-2">
-                      <apexchart
-                        type="donut"
-                        height="380"
-                        :options="barOptions"
-                        :series="barOptions.series"
-                      ></apexchart>
-                    </b-card>
-                  </b-col>
-                </b-row>
-              </div>
-              <div class="mt-2 mb-4 text-center">
-                <h5>
-                  <b>KASA YOĞUNLUĞU ANALİZLERİ</b>
-                </h5>
-              </div>
-              <b-card no-body class="mt-3 mb-3 rounded border shadow p-2">
-                <apexchart
-                  type="area"
-                  height="400"
-                  :options="areaOptions"
-                  :series="series"
-                ></apexchart>
-              </b-card>
+        <div>
+          <b-row no-gutters>
+            <b-col lg="6" class="text-left">
+              <b-row>
+                <b-col>
+                  <b-form-datepicker
+                    class=" bg-light"
+                    placeholder="Start Date"
+                    v-model="start_date"
+                  ></b-form-datepicker>
+                </b-col>
+                <b-col>
+                  <b-form-datepicker
+                    class=" bg-light"
+                    placeholder="End Date"
+                    v-model="end_date"
+                  ></b-form-datepicker>
+                </b-col>
+              </b-row>
             </b-col>
-            <!-- <b-col lg="5">
+            <b-col lg="6"></b-col>
+          </b-row>
+          <div class="text-center mt-3">
+            <h5>
+              <b> MAĞAZA GİRİŞ ÇIKIŞ ANALİZLERİ </b>
+            </h5>
+          </div>
+          <div class="mt-3">
+            <b-row v-if="is_ready">
+              <b-col lg="12" class="pl-0">
+                <b-card no-body class="rounded border shadow p-2">
+                  <apexchart
+                    type="bar"
+                    height="400"
+                    :options="barChartOptions"
+                    :series="series"
+                  ></apexchart>
+                </b-card>
+                <div class="text-center">
+                  <h5 class="mb-4 mt-3">
+                    <b> REYON ZİYARET ANALİZLERİ </b>
+                  </h5>
+                </div>
+                <div>
+                  <b-row>
+                    <b-col cols="12" lg="6">
+                      <b-card no-body class="rounded border shadow p-2">
+                        <apexchart
+                          type="bar"
+                          height="350"
+                          :options="radialBarOptions"
+                          :series="series"
+                        ></apexchart>
+                      </b-card>
+                    </b-col>
+                    <b-col cols="12" lg="6">
+                      <b-card no-body class="mt-3 rounded border shadow p-2">
+                        <apexchart
+                          type="donut"
+                          height="380"
+                          :options="barOptions"
+                          :series="barOptions.series"
+                        ></apexchart>
+                      </b-card>
+                    </b-col>
+                  </b-row>
+                </div>
+                <div class="mt-2 mb-4 text-center">
+                  <h5>
+                    <b>KASA YOĞUNLUĞU ANALİZLERİ</b>
+                  </h5>
+                </div>
+                <b-card no-body class="mt-3 mb-3 rounded border shadow p-2">
+                  <apexchart
+                    type="area"
+                    height="400"
+                    :options="areaOptions"
+                    :series="series"
+                  ></apexchart>
+                </b-card>
+              </b-col>
+              <!-- <b-col lg="5">
               
             </b-col> -->
-          </b-row>
+            </b-row>
+          </div>
         </div>
       </div>
-    </div>
-  </b-overlay>
+    </b-overlay>
   </client-only>
 </template>
 
@@ -91,7 +101,8 @@ export default {
   components: { apexchart },
   data() {
     return {
-      visual_date: null,
+      start_date:null,
+      end_date:null,
       report_overlay: false,
       is_ready: false,
       barChartOptions: {
@@ -474,7 +485,7 @@ export default {
     this.getGateInfo(this.$route.query.id)
   },
   watch: {
-    visual_date(val) {
+    end_date(val) {
       this.report_overlay = true
       setTimeout(() => {
         this.report_overlay = false
