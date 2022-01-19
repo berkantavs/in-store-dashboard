@@ -8,14 +8,14 @@
               <b-row>
                 <b-col>
                   <b-form-datepicker
-                    class=" bg-light"
+                    class="bg-light"
                     placeholder="Start Date"
                     v-model="start_date"
                   ></b-form-datepicker>
                 </b-col>
                 <b-col>
                   <b-form-datepicker
-                    class=" bg-light"
+                    class="bg-light"
                     placeholder="End Date"
                     v-model="end_date"
                   ></b-form-datepicker>
@@ -34,7 +34,7 @@
               <b-col lg="12" class="pl-0">
                 <b-card no-body class="rounded border shadow p-2">
                   <apexchart
-                    type="bar"
+                    type="line"
                     height="400"
                     :options="barChartOptions"
                     :series="series"
@@ -101,69 +101,44 @@ export default {
   components: { apexchart },
   data() {
     return {
-      start_date:null,
-      end_date:null,
+      start_date: null,
+      end_date: null,
       report_overlay: false,
       is_ready: false,
       barChartOptions: {
         chart: {
-          stacked: true,
-          type: 'bar',
-          toolbar: { show: false },
-        },
-        grid: {
-          padding: {
-            top: -20,
-            bottom: -10,
+          height: 350,
+          type: 'line',
+          zoom: {
+            enabled: false,
           },
-          yaxis: {
-            lines: { show: false },
-          },
-        },
-        xaxis: {
-          categories: [
-            ' 9:00',
-            ' 9:30',
-            ' 10:00',
-            ' 10:30',
-            ' 11:00',
-            ' 11:30',
-            ' 12:00',
-          ],
-          labels: {
-            style: {
-              colors: '#b9b9c3',
-              fontSize: '0.86rem',
-            },
-          },
-          axisTicks: {
-            show: false,
-          },
-          axisBorder: {
-            show: false,
-          },
-        },
-        legend: {
-          show: false,
         },
         dataLabels: {
           enabled: false,
         },
-        colors: ['#3ED3BB', '#FD4863', '#39539E', '#0077B5'],
-        plotOptions: {
-          bar: {
-            columnWidth: '17%',
-            endingShape: 'rounded',
-          },
-          distributed: true,
+        stroke: {
+          curve: 'straight',
         },
-        yaxis: {
-          labels: {
-            style: {
-              colors: '#b9b9c3',
-              fontSize: '0.86rem',
-            },
+        title: {
+          text: 'Product Trends by Month',
+          align: 'left',
+        },
+        grid: {
+          row: {
+            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+            opacity: 0.5,
           },
+        },
+        xaxis: {
+          categories: [
+           '11/10/2021 9:00',
+          '11/10/2021 9:30',
+          '11/10/2021 10:00',
+          '11/10/2021 10:30',
+          '11/10/2021 11:00',
+          '11/10/2021 11:30',
+          '11/10/2021 12:00',
+          ],
         },
       },
       gate_report: null,
@@ -208,19 +183,19 @@ export default {
       series: [
         {
           name: 'yaz_reyon',
-          data: [4.6, 9.25, 4.6, 3.5, 10.16, 7.23],
+          data: [],
         },
         {
           name: 'erkek_reyon',
-          data: [0.13, 0.03, 0.13, 3.08, 7.03, 3.48],
+          data: [],
         },
         {
           name: 'kadin_reyon',
-          data: [0.58, 2.13, 0.58, 0.9, 2.45, 3.18],
+          data: [],
         },
         {
           name: 'bebek_reyon',
-          data: [0.03, 0, 0.03, 1.18, 5.63, 0],
+          data: [],
         },
       ],
       radialBarOptions: {
@@ -500,11 +475,47 @@ export default {
         )
         if (response && response.data && response.data.reports) {
           this.gate_report = response.data.reports
+          this.formatReport(this.gate_report)
           this.is_ready = true
         }
       } catch (error) {
         console.log(error)
       }
+    },
+    formatReport(data) {
+      this.series[0].data = []
+      this.series[1].data = []
+      this.series[2].data = []
+      this.series[3].data = []
+
+      data.forEach((value) => {
+        let erkek_reyon = null
+        let kadin_reyon = null
+        let yaz_reyon = null
+        let bebek_reyon = null
+        for (let [key_in, value_in] of Object.entries(value)) {
+          switch (key_in) {
+            case 'erkek_reyon':
+              erkek_reyon = parseFloat(Number(value_in)).toFixed(2)
+              break
+            case 'kadin_reyon':
+              kadin_reyon = parseFloat(Number(value_in)).toFixed(2)
+              break
+            case 'bebek_reyon':
+              bebek_reyon = parseFloat(Number(value_in)).toFixed(2)
+              break
+            case 'yaz_reyon':
+              yaz_reyon = parseFloat(Number(value_in)).toFixed(2)
+              break
+            default:
+              break
+          }
+        }
+        this.series[0].data.push(yaz_reyon)
+        this.series[1].data.push(erkek_reyon)
+        this.series[2].data.push(kadin_reyon)
+        this.series[3].data.push(bebek_reyon)
+      })
     },
     formatDate(date, type) {
       let return_date
